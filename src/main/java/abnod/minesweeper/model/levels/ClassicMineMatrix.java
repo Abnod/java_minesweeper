@@ -48,4 +48,8 @@ public class ClassicMineMatrix implements Level {
             }
         } while (!minePlaced);
     }
+
+    public Mine[][] getMatrix() {
+        return matrix;
+    }
 }

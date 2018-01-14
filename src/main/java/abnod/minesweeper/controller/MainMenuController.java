@@ -22,45 +22,70 @@ public class MainMenuController {
     private Stage stage;
 
     public void initialize() {
+
+        //set width, height and count fields to numeric only
+        classicWidth.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                classicWidth.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        classicHeight.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                classicHeight.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        classicMinesCount.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                classicMinesCount.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
-    public void runClassicLevel() {
-        RadioButton selectedButton = (RadioButton) classicGroup.getSelectedToggle();
-        if (selectedButton.getId().equals("customClassicCheck")) {
-            if (classicWidth.getText().isEmpty() || classicHeight.getText().isEmpty() || classicMinesCount.getText().isEmpty()) {
-                return;
-            } else if (Integer.parseInt(classicWidth.getText()) * Integer.parseInt(classicHeight.getText()) <= Integer.parseInt(classicMinesCount.getText())) {
-                return;
-            }
-        }
+    public void generateLevel(int width, int height, int count, LevelController levelController) {
         try {
-            loader = new FXMLLoader(getClass().getResource("/ModeClassic.fxml"));
+            loader = new FXMLLoader(getClass().getResource("/fxml/GameField.fxml"));
+            loader.setController(levelController);
             Parent root = loader.load();
-            ModeClassicController classicController = loader.getController();
-            classicController.setStage(stage);
-            switch (selectedButton.getId()) {
-                case "easyClassicCheck": {
-                    classicController.run(6, 6, 9);
-                    break;
-                }
-                case "normalClassicCheck": {
-                    classicController.run(10, 10, 25);
-                    break;
-                }
-                case "hardClassicCheck": {
-                    classicController.run(15, 15, 56);
-                    break;
-                }
-                case "customClassicCheck": {
-
-                    break;
-                }
-            }
+            levelController.setStage(stage);
+            levelController.run(width, height, count);
             stage.setScene(new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight()));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void runClassicLevel() {
+        RadioButton selectedButton = (RadioButton) classicGroup.getSelectedToggle();
+        int width, height, count;
+        switch (selectedButton.getId()) {
+            case "easyClassicCheck": {
+                generateLevel(6, 6, 9, new ModeClassicController());
+                break;
+            }
+            case "normalClassicCheck": {
+                generateLevel(10, 10, 25, new ModeClassicController());
+                break;
+            }
+            case "hardClassicCheck": {
+                generateLevel(15, 15, 56, new ModeClassicController());
+                break;
+            }
+            case "customClassicCheck": {
+                //classic field checks
+                if (classicWidth.getText().isEmpty() || classicHeight.getText().isEmpty() || classicMinesCount.getText().isEmpty()) {
+                    return;
+                }
+                width = Integer.parseInt(classicWidth.getText());
+                height = Integer.parseInt(classicHeight.getText());
+                count = Integer.parseInt(classicMinesCount.getText());
+                if (width * height <= count) {
+                    return;
+                }
+
+                generateLevel(width, height, count, new ModeClassicController());
+                break;
+            }
+        }
     }
 
     public void setStage(Stage stage) {

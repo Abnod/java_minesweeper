@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121">
+    <HBox minHeight="50">
+
+    </HBox>
+    <ScrollPane VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <VBox fx:id="gamePane" spacing="2" VBox.vgrow="ALWAYS" alignment="CENTER">
+
+        </VBox>
+    </ScrollPane>
+    <HBox minHeight="50">
+
+    </HBox>
+</VBox>

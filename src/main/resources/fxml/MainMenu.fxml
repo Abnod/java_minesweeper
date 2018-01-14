@@ -2,13 +2,13 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox fx:id="rootNode" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121"
+<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="abnod.minesweeper.controller.MainMenuController">
     <HBox minHeight="50">
         <Label>Please enter your name</Label>
         <TextField fx:id="nameField"/>
     </HBox>
-    <VBox style="-fx-background-color: brown" VBox.vgrow="ALWAYS">
+    <VBox VBox.vgrow="ALWAYS">
         <Label>Select Mode</Label>
         <HBox>
             <RadioButton fx:id="easyClassicCheck" selected="true">Easy (6x6, 9 mines)
@@ -22,9 +22,9 @@
         </HBox>
         <HBox>
             <Label>Custom parameters :</Label>
-            <TextArea fx:id="classicWidth" promptText="width" maxWidth="50" maxHeight="15"/>
-            <TextArea fx:id="classicHeight" promptText="height" maxWidth="50" maxHeight="15"/>
-            <TextArea fx:id="classicMinesCount" promptText="mines count" maxWidth="50" maxHeight="15"/>
+            <TextArea fx:id="classicWidth" maxHeight="15" maxWidth="50" promptText="width"/>
+            <TextArea fx:id="classicHeight" maxHeight="15" maxWidth="50" promptText="height"/>
+            <TextArea fx:id="classicMinesCount" maxHeight="15" maxWidth="50" promptText="mines count"/>
         </HBox>
         <Button onAction="#runClassicLevel" text="Run Classic Mode"/>
     </VBox>
