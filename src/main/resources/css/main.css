@@ -1,0 +1,42 @@
+Button {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+    -fx-background-radius: 0px;
+}
+
+.rootNode {
+    -fx-background-color: burlywood;
+}
+
+.modeHeader {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+}
+
+.selectorHeader {
+    -fx-font-size: 12pt;
+    -fx-padding: 10px;
+}
+
+RadioButton {
+    -fx-padding: 5px;
+}
+
+RadioButton .dot {
+    -fx-mark-color: dodgerblue;
+    -fx-background-radius: 0px;
+}
+
+RadioButton .radio {
+    -fx-background-radius: 0px;
+}
+
+.customParams {
+    -fx-min-width: 110px;
+    -fx-max-width: 110px;
+    -fx-max-height: 35px;
+    -fx-min-height: 35px;
+    -fx-padding: 5px;
+    -fx-background-insets: 5px;
+    -fx-border-insets: 5px;
+}

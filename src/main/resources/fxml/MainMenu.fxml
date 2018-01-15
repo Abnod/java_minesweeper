@@ -2,29 +2,35 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="abnod.minesweeper.controller.MainMenuController">
+<VBox styleClass="rootNode" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="abnod.minesweeper.controller.MainMenuController" stylesheets="/css/main.css">
     <HBox minHeight="50">
-        <Label>Please enter your name</Label>
-        <TextField fx:id="nameField"/>
+        <!--<Label>Please enter your name</Label>-->
+        <!--<TextField fx:id="nameField"/>-->
     </HBox>
-    <VBox VBox.vgrow="ALWAYS">
-        <Label>Select Mode</Label>
-        <HBox>
-            <RadioButton fx:id="easyClassicCheck" selected="true">Easy (6x6, 9 mines)
+    <VBox VBox.vgrow="ALWAYS" alignment="TOP_CENTER">
+        <Label styleClass="modeHeader">Classic game</Label>
+        <Label styleClass="selectorHeader">Select Mode</Label>
+        <HBox alignment="TOP_CENTER">
+            <RadioButton fx:id="easyClassicCheck" selected="true" focusTraversable="false">Easy (6x6, 9 mines)
                 <toggleGroup>
                     <ToggleGroup fx:id="classicGroup"/>
                 </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="normalClassicCheck" toggleGroup="$classicGroup">Normal (10x10, 25 mines)</RadioButton>
-            <RadioButton fx:id="hardClassicCheck" toggleGroup="$classicGroup">Hard (15x15, 56 mines)</RadioButton>
-            <RadioButton fx:id="customClassicCheck" toggleGroup="$classicGroup">Custom</RadioButton>
+            <RadioButton fx:id="normalClassicCheck" toggleGroup="$classicGroup" focusTraversable="false">Normal (10x10,
+                25 mines)
+            </RadioButton>
+            <RadioButton fx:id="hardClassicCheck" toggleGroup="$classicGroup" focusTraversable="false">Hard (15x15, 56
+                mines)
+            </RadioButton>
+            <RadioButton fx:id="customClassicCheck" toggleGroup="$classicGroup" focusTraversable="false">Custom
+            </RadioButton>
         </HBox>
-        <HBox>
-            <Label>Custom parameters :</Label>
-            <TextArea fx:id="classicWidth" maxHeight="15" maxWidth="50" promptText="width"/>
-            <TextArea fx:id="classicHeight" maxHeight="15" maxWidth="50" promptText="height"/>
-            <TextArea fx:id="classicMinesCount" maxHeight="15" maxWidth="50" promptText="mines count"/>
+        <HBox alignment="CENTER">
+            <Label>Custom game parameters :</Label>
+            <TextArea styleClass="customParams" fx:id="classicWidth" promptText="width" disable="true"/>
+            <TextArea styleClass="customParams" fx:id="classicHeight" promptText="height" disable="true"/>
+            <TextArea styleClass="customParams" fx:id="classicMinesCount" promptText="mines count" disable="true"/>
         </HBox>
         <Button onAction="#runClassicLevel" text="Run Classic Mode"/>
     </VBox>

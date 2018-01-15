@@ -18,15 +18,11 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModeClassicController implements LevelController {
+public class ModeClassicController extends LevelController {
 
-    private Stage stage;
     private ClassicMineMatrix classicMineMatrix;
     private Mine[][] matrix;
     private EventHandler<MouseEvent> mouseClickHandler;
-
-    @FXML
-    private VBox gamePane;
 
     public void initialize() {
         mouseClickHandler = event -> {
@@ -46,6 +42,7 @@ public class ModeClassicController implements LevelController {
     }
 
     public void run(int sizeX, int sizeY, int minesCount) {
+        freeTilesCount = sizeX * sizeY - minesCount;
         List<MineType> mineTypes = new ArrayList<>();
         mineTypes.add(MineType.CLASSIC);
         classicMineMatrix = new ClassicMineMatrix(sizeX, sizeY, minesCount, mineTypes);
@@ -53,14 +50,11 @@ public class ModeClassicController implements LevelController {
         draw();
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     public void draw() {
         gamePane.getChildren().clear();
         for (int i = 0; i < matrix.length; i++) {
             HBox hBox = new HBox(2);
+            hBox.setAlignment(Pos.CENTER);
             for (int j = 0; j < matrix[i].length; j++) {
                 ImageView tile = new ImageView("/classicImages/ClassicTile.jpg");
                 tile.setFitWidth(20);
@@ -87,11 +81,7 @@ public class ModeClassicController implements LevelController {
             switch (matrix[y][x].getType()) {
                 case CLASSIC: {
                     tile.setImage(new Image("/classicImages/StandartMine.png"));
-                    Label gameoverLabel = new Label("Game Over!");
-                    gameoverLabel.setAlignment(Pos.CENTER);
-                    gameoverLabel.setPrefSize(gamePane.getWidth() / 2, gamePane.getHeight() / 2);
-                    gamePane.getChildren().clear();
-                    gamePane.getChildren().add(gameoverLabel);
+                    gameover();
                     break;
                 }
                 case DEATH: {
@@ -112,11 +102,16 @@ public class ModeClassicController implements LevelController {
             if (counter == 0) {
                 tile.setImage(new Image("/classicImages/ClassicTileOpened.jpg"));
                 tile.setUserData("opened");
+                winCounter++;
             } else {
                 tile.setImage(new Image("/classicImages/ClassicTile" + counter + ".jpg"));
                 tile.setUserData("opened");
+                winCounter++;
             }
         }
-    }
+        if (winCounter == freeTilesCount) {
+            win();
 
+        }
+    }
 }

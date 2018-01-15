@@ -1,5 +1,7 @@
 package abnod.minesweeper.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +18,12 @@ public class MainMenuController {
     @FXML
     private ToggleGroup classicGroup;
     @FXML
+    private RadioButton customClassicCheck;
+    @FXML
     private TextArea classicWidth, classicHeight, classicMinesCount;
 
-    private FXMLLoader loader;
     private Stage stage;
+    private Parent root;
 
     public void initialize() {
 
@@ -39,16 +43,32 @@ public class MainMenuController {
                 classicMinesCount.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+        customClassicCheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (customClassicCheck.isSelected()) {
+                    classicMinesCount.setDisable(false);
+                    classicWidth.setDisable(false);
+                    classicHeight.setDisable(false);
+                } else {
+                    classicMinesCount.setDisable(true);
+                    classicWidth.setDisable(true);
+                    classicHeight.setDisable(true);
+                }
+            }
+        });
+
+
     }
 
     public void generateLevel(int width, int height, int count, LevelController levelController) {
         try {
-            loader = new FXMLLoader(getClass().getResource("/fxml/GameField.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameField.fxml"));
             loader.setController(levelController);
-            Parent root = loader.load();
+            Parent newRoot = loader.load();
             levelController.setStage(stage);
             levelController.run(width, height, count);
-            stage.setScene(new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight()));
+            stage.setScene(new Scene(newRoot, stage.getScene().getWidth(), stage.getScene().getHeight()));
         } catch (IOException e) {
             e.printStackTrace();
         }
