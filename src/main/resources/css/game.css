@@ -1,0 +1,22 @@
+Button {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+    -fx-background-radius: 0px;
+}
+
+.rootNode,
+.gamePaneWrapper,
+.gamePane {
+    -fx-background-color: burlywood;
+}
+
+Button {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+    -fx-background-radius: 0px;
+}
+
+.gameoverLabel {
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+}
